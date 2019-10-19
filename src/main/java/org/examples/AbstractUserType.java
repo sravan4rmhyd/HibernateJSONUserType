@@ -4,12 +4,7 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.engine.jdbc.Size;
@@ -82,7 +77,7 @@ public abstract class AbstractUserType<T> implements UserType, Type {
 	}
 
 	@Override
-	public Class getReturnedClass() {
+	public Class<?> getReturnedClass() {
 		return returnedClass();
 	}
 
@@ -204,12 +199,14 @@ public abstract class AbstractUserType<T> implements UserType, Type {
 		return this;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Object replace(Object original, Object target, SharedSessionContractImplementor session, Object owner,
 			Map copyCache) throws HibernateException {
 		return replace(original, target, owner);
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Object replace(Object original, Object target, SharedSessionContractImplementor session, Object owner,
 			Map copyCache, ForeignKeyDirection foreignKeyDirection) throws HibernateException {

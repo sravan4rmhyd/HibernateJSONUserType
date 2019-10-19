@@ -1,5 +1,7 @@
 package org.examples;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Month;
@@ -38,6 +40,16 @@ public class JsonStringMain {
 			);
 		entityManager.getTransaction().commit();
 		Book book = entityManager.unwrap(Session.class).bySimpleNaturalId(Book.class).load("978-9730228236");
-		System.out.println(book.getPresalePeriod());
+		assertEquals(
+			    Duration.between(
+			        LocalDate
+			            .of(2015, Month.NOVEMBER, 2)
+			            .atStartOfDay(),
+			        LocalDate
+			            .of(2016, Month.AUGUST, 25)
+			            .atStartOfDay()
+			    ),
+			    book.getPresalePeriod()
+			);
 	}
 }
